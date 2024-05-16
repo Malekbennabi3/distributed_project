@@ -4,11 +4,10 @@ const mongoose = require("mongoose");
 exports.getEnv = function(name) {
     return process.env[name] || fs.readFileSync(process.env[name + "_FILE"], "utf8")
 }
-
-const MONGO_URL = exports.getEnv("MONGO_URL");
+const MONGO_PASSWORD = exports.getEnv("MONGO_PASSWORD");
 
 exports.tryStartMongoose = function() {
-    mongoose.connect(MONGO_URL).then(() => {
+    mongoose.connect(`mongodb://root:${encodeURIComponent(MONGO_PASSWORD)}@mongo:27017/?authSource=admin`).then(() => {
         console.info("Connected to MongoDB");
     }).catch(e => {
         console.error(e);

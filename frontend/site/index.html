@@ -64,6 +64,7 @@
             createRequestForm("User info", ":8080/info", "token");
             createRequestForm("User boards", ":8081/boards", "token");
             createRequestForm("Board info", ":8081/board", "token", "boardId");
+            createRequestForm("Create board", ":8081/createBoard", "token");
             createRequestForm("Add note", ":8081/addNote", "token", "boardId", "content");
             createRequestForm("Delete note", ":8081/deleteNote", "token", "boardId", "noteId");
             createRequestForm("Update board", ":8081/updateBoard", "token", "boardId", "public");

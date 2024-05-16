@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - env:
+            - name: JWT_KEY_FILE
+              value: /usr/app/secrets/jwt_key
+            - name: MONGO_PASSWORD_FILE
+              value: /usr/app/secrets/db_password
+          image: epicpigeon/auth_service:1
+          imagePullPolicy: Always
+          name: auth
+          ports:
+            - containerPort: 8080
+              hostPort: 8080
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/app/secrets
+              name: secrets
+      restartPolicy: Always
+      volumes:
+        - name: secrets
+          secret:
+            items:
+              - key: jwt-key
+                path: jwt_key
+              - key: db-password
+                path: db_password
+            secretName: notes-secret

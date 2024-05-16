@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: mongo
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+        - env:
+            - name: MONGO_INITDB_ROOT_PASSWORD_FILE
+              value: /usr/app/secrets/db_password
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+          image: mongo
+          name: mongo
+          ports:
+            - containerPort: 27017
+              hostPort: 27017
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/app/secrets
+              name: secrets
+            - mountPath: /data/db
+              name: mongo-claim0
+      restartPolicy: Always
+      volumes:
+        - name: secrets
+          secret:
+            items:
+              - key: db-password
+                path: db_password
+            secretName: notes-secret
+        - name: mongo-claim0
+          persistentVolumeClaim:
+            claimName: mongo-claim

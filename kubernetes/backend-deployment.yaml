@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backend
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - env:
+            - name: AUTH_URL
+              value: http://auth:8080/info
+            - name: MONGO_PASSWORD_FILE
+              value: /usr/app/secrets/db_password
+          image: epicpigeon/backend:1
+          imagePullPolicy: Always
+          name: backend
+          ports:
+            - containerPort: 8081
+              hostPort: 8081
+              protocol: TCP
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/app/secrets
+              name: secrets
+      restartPolicy: Always
+      volumes:
+        - name: secrets
+          secret:
+            items:
+              - key: db-password
+                path: db_password
+            secretName: notes-secret

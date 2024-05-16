@@ -1,9 +1,11 @@
 FROM node:latest
 WORKDIR /usr/app
-COPY ./ /usr/app
+COPY ./backend /usr/app
+COPY ./common /usr/app/common
 RUN npm install
 
-ARG MONGO_URL_FILE
+ARG MONGO_PASSWORD
+ARG MONGO_PASSWORD_FILE
 ARG AUTH_URL
 
 EXPOSE 8081

@@ -5,8 +5,6 @@ networks:
 secrets:
   db_password:
     file: ./secrets/db_password
-  db_url:
-    file: ./secrets/db_url
   jwt_key:
     file: ./secrets/jwt_key
 
@@ -28,36 +26,32 @@ services:
     networks:
       - app-tier
   auth:
-    image: auth_service
+    image: epicpigeon/auth_service:1
     restart: always
-    volumes:
-      - ./common:/usr/app/common
     environment:
-      MONGO_URL_FILE: /run/secrets/db_url
+      MONGO_PASSWORD_FILE: /run/secrets/db_password
       JWT_KEY_FILE: /run/secrets/jwt_key
     secrets:
       - jwt_key
-      - db_url
+      - db_password
     ports:
       - '8080:8080'
     networks:
       - app-tier
   backend:
-    image: backend
+    image: epicpigeon/backend:1
     restart: always
-    volumes:
-      - ./common:/usr/app/common
     environment:
-      MONGO_URL_FILE: /run/secrets/db_url
+      MONGO_PASSWORD_FILE: /run/secrets/db_password
       AUTH_URL: 'http://auth:8080/info'
     secrets:
-      - db_url
+      - db_password
     ports:
       - '8081:8081'
     networks:
       - app-tier
   frontend:
-    image: frontend
+    image: epicpigeon/frontend:1
     restart: always
     environment:
       THIS_DOMAIN: 'localhost'
