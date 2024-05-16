@@ -1,6 +1,7 @@
 const app = require("express")();
 const bodyParser = require("body-parser");
 const jwt = require("./jwt");
+const { getEnv } = require("./common/util");
 
 const { createHash } = require('crypto');
 function sha256(str) {
@@ -9,7 +10,7 @@ function sha256(str) {
 
 const mongoose = require("mongoose");
 const User = require("./user").model;
-const MONGO_URL = process.env["MONGO_URL"];
+const MONGO_URL = getEnv("MONGO_URL");
 function tryStartMongoose() {
     mongoose.connect(MONGO_URL).then(() => {
         console.info("Connected to MongoDB");

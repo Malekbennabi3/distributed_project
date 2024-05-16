@@ -1,6 +1,6 @@
-const jwt = require("jsonwebtoken")
-const fs = require("fs");
-let key = process.env["JWT_KEY"] || fs.readFileSync(process.env["JWT_KEY_FILE"], "utf8");
+const jwt = require("jsonwebtoken");
+const { getEnv } = require("./common/util");
+let key = getEnv("JWT_KEY");
 
 exports.verify = function (token) {
     try {

@@ -5,6 +5,8 @@ networks:
 secrets:
   db_password:
     file: ./secrets/db_password
+  db_url:
+    file: ./secrets/db_url
   jwt_key:
     file: ./secrets/jwt_key
 
@@ -25,14 +27,17 @@ services:
       - '27017:27017'
     networks:
       - app-tier
-  backend:
+  auth:
     image: auth_service
     restart: always
+    volumes:
+      - ./common:/usr/app/common
     environment:
-      MONGO_URL: 'mongodb://root:XaPgzb8H2%29Rj35Q%60Au%3D%3CN%5D%2B%26p-%3FWmvnU%2AKSLeGf%3A@mongo:27017/?authSource=admin'
+      MONGO_URL_FILE: /run/secrets/db_url
       JWT_KEY_FILE: /run/secrets/jwt_key
     secrets:
       - jwt_key
+      - db_url
     ports:
       - '8080:8080'
     networks:
