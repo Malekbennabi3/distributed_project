@@ -46,6 +46,9 @@ exports.errorHandler = function(err, req, res, next) {
 exports.setupApp = function(func) {
     const app = require("express")();
     const bodyParser = require("body-parser");
+    const cors = require("cors");
+
+    app.use(cors());
 
     app.use(bodyParser.urlencoded({extended: false}));
     app.use(bodyParser.json());

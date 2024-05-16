@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <script>
+        let baseUrl = "http://localhost";
+        let maxId = 0;
+        function createRequestForm(name, url, ...params) {
+            let form = document.createElement("div");
+            let h = document.createElement("h3");
+            h.innerText = name;
+            form.appendChild(h);
+            let paramInputs = {};
+            for (let param of params) {
+                if (param === "token") continue;
+                let id = "id" + maxId;
+                maxId++;
+                let line = document.createElement("div");
+                let label = document.createElement("label");
+                label.setAttribute("for", id);
+                label.innerText = param;
+                let input = document.createElement("input");
+                input.setAttribute("type", "text");
+                input.setAttribute("id", id);
+                paramInputs[param] = input;
+                line.appendChild(label);
+                line.appendChild(input);
+                form.appendChild(line);
+            }
+            let pre = document.createElement("pre");
+            let button = document.createElement("button");
+            button.innerText = "Submit";
+            button.onclick = function () {
+                let data = {};
+                for (let param of params) {
+                    if (param === "token") {
+                        data[param] = document.getElementById("token").value;
+                        continue;
+                    }
+                    data[param] = paramInputs[param].value;
+                }
+                fetch(baseUrl + url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                }).then(r => r.json()).then(r => {
+                    pre.innerText = JSON.stringify(r);
+                    if (r.success && url.endsWith("/login")) {
+                        document.getElementById("token").value = r.token;
+                    }
+                })
+            }
+            form.appendChild(button);
+            form.appendChild(pre);
+            document.body.appendChild(form);
+        }
+
+        window.onload = function () {
+            createRequestForm("Login", ":8080/login", "login", "password");
+            createRequestForm("Register", ":8080/register", "login", "password");
+            createRequestForm("User info", ":8080/info", "token");
+            createRequestForm("User boards", ":8081/boards", "token");
+            createRequestForm("Board info", ":8081/board", "token", "boardId");
+            createRequestForm("Add note", ":8081/addNote", "token", "boardId", "content");
+            createRequestForm("Delete note", ":8081/deleteNote", "token", "boardId", "noteId");
+            createRequestForm("Update board", ":8081/updateBoard", "token", "boardId", "public");
+            createRequestForm("Delete board", ":8081/deleteBoard", "token", "boardId");
+        };
+    </script>
+</head>
+<body>
+<label for="token">Token: </label><input type="text" id="token"><br>
+</body>
+</html>

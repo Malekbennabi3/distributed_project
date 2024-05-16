@@ -56,3 +56,10 @@ services:
       - '8081:8081'
     networks:
       - app-tier
+  frontend:
+    image: frontend
+    restart: always
+    environment:
+      THIS_DOMAIN: 'localhost'
+    ports:
+      - '80:80'
