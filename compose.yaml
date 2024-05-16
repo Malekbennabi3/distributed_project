@@ -2,6 +2,12 @@ networks:
   app-tier:
     driver: bridge
 
+secrets:
+  db_password:
+    file: ./secrets/db_password
+  jwt_key:
+    file: ./secrets/jwt_key
+
 services:
   mongo:
     image: mongo
@@ -10,7 +16,9 @@ services:
       - ./db_data:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: 'XaPgzb8H2)Rj35Q`Au=<N]+&p-?WmvnU*KSLeGf:'
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/db_password
+    secrets:
+      - db_password
     expose:
       - '27017'
     ports:
@@ -20,13 +28,11 @@ services:
   backend:
     image: auth_service
     restart: always
-    volumes:
-      - ./common:/usr/app/common
-      - ./keys:/usr/app/keys
     environment:
       MONGO_URL: 'mongodb://root:XaPgzb8H2%29Rj35Q%60Au%3D%3CN%5D%2B%26p-%3FWmvnU%2AKSLeGf%3A@mongo:27017/?authSource=admin'
-      PUBLIC_KEY_PATH: 'keys/public.pem'
-      PRIVATE_KEY_PATH: 'keys/private.pem'
+      JWT_KEY_FILE: /run/secrets/jwt_key
+    secrets:
+      - jwt_key
     ports:
       - '8080:8080'
     networks:

@@ -1,6 +1,6 @@
 const app = require("express")();
 const bodyParser = require("body-parser");
-const jwt = require("./common/jwt");
+const jwt = require("./jwt");
 
 const { createHash } = require('crypto');
 function sha256(str) {
