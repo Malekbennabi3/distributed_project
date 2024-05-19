@@ -8,6 +8,11 @@ Participants:
 * **BENNABI Malek Mohamed** *(M1 Info -VMI)*
 * **OSTAPLIUK Nykyta** *(M1 Info -IAD)*
 
+Teacher: 
+
+**Benoît Charroux**
+
+
 
 ## Technologies utilisées
 
