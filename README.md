@@ -13,8 +13,8 @@ Participants:
 
 * Node.js
 * Docker
-*Kubernetes
-*MangoDB
+* Kubernetes
+* MangoDB
 
 
 ## Docker Compose
