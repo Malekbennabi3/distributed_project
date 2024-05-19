@@ -3,6 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Notes</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+        div div {
+            margin: 5px;
+        }
+        body > div {
+            margin-left: auto;
+            margin-right: auto;
+            padding: 2px 10px;
+            margin-top: 10px;
+            width: 250px;
+            background: beige;
+            border-radius: 5px;
+        }
+        body {
+            background: dimgray;
+        }
+    </style>
     <script>
         let baseUrl = "http://localhost";
         let maxId = 0;
@@ -73,6 +94,8 @@
     </script>
 </head>
 <body>
-<label for="token">Token: </label><input type="text" id="token"><br>
+<div>
+    <label for="token">Token: </label><input type="text" id="token">
+</div>
 </body>
 </html>
