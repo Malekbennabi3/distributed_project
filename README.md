@@ -8,4 +8,4 @@ Participants:
 * **BENNABI Malek Mohamed** *(M1 Info -VMI)*
 * **OSTAPLIUK Nykyta** *(M1 Info -IAD)*
 
-  ![[Alt text]](https://photosolve.io/)
+  ![[Alt text]]([https://photosolve.io/](https://github.com/Malekbennabi3/distributed_project/blob/master/docker_compose.png))
