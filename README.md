@@ -1,7 +1,7 @@
 
 # Programmation distribuée
 
-This is the source code for our  project of the Master1 distributed programming class.
+This is the source code of our [Project](https://github.com/Malekbennabi3/distributed_project/blob/master/Enonc%C3%A9_Projet.pdf) for the Master1 distributed programming class.
 
 Participants:
 
