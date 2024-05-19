@@ -10,7 +10,7 @@ Participants:
 
 Teacher: 
 
-* **Benoît Charroux**
+* **CHARROUX Benoît**
 
 
 
