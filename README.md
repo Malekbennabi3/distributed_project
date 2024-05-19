@@ -8,4 +8,4 @@ Participants:
 * **BENNABI Malek Mohamed** *(M1 Info -VMI)*
 * **OSTAPLIUK Nykyta** *(M1 Info -IAD)*
 
-  ![[Alt text]]([(https://github.com/Malekbennabi3/distributed_project/blob/master/docker_compose.png])
+  ![**Docker Compose**]([(https://github.com/Malekbennabi3/distributed_project/blob/master/docker_compose.png])
